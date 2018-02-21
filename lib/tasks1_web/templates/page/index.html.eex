@@ -1,0 +1,23 @@
+<%= if !@current_user do %>
+  <h1>Log In</h1>
+  <!-- session_path(@conn, :create) -->
+  <%= form_tag("/session", method: :post) do %>
+    <div class="form-group">
+      Username
+      <input type="name" name="Username" placeholder="Enter your username" >
+      </br>
+      User ID
+      <input type="id" name="user_id" placeholder="Enter your user id" >
+      <%= link "Forgot your user id?", to: "/users" %>
+    </div>
+    <!-- passwords come later -->
+    <div class="form-group">
+      <button class="btn btn-primary">Log in</button>
+      <%= link "Register", to: user_path(@conn, :new) %>
+    </div>
+  <% end %>
+<%= else %>
+  <h1>Welcome to the task tracker!</h1>
+<%= end %>
+
+

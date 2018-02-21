@@ -1,0 +1,42 @@
+<h1>Your Tasks</h1>
+</br>
+<h3> Incomplete tasks </h3>
+<%= Enum.map @tasks, fn task -> %>
+    <%= if (task.user == @current_user) && @current_user && !task.completed do %>
+        </br>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <p><strong>Task: </strong><%= task.title %></p>
+                        <p><strong>Description: </strong><%= task.description %></p>
+                        <p><strong>Time Spent: </strong><%= task.time %> minutes</p>
+                        <%= link "Update Task Progress", to: task_path(@conn, :edit, task) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% end %>
+<% end %>
+</br>
+<h3> Completed tasks </h3>
+<%= Enum.map @tasks, fn task -> %>
+    <%= if (task.user == @current_user) && @current_user && task.completed do %>
+        </br>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <p><strong>Task: </strong><%= task.title %></p>
+                        <p><strong>Description: </strong><%= task.description %></p>
+                        <p><strong>Time Spent: </strong><%= task.time %> minutes</p>
+                        <%= link "Update Task Progress", to: task_path(@conn, :edit, task) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% end %>
+<% end %>
+<%= if !@current_user do %>
+    No tasks to show. Make sure you're logged in!
+<% end %>

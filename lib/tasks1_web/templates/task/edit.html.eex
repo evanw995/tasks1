@@ -1,0 +1,11 @@
+<h2>Update Task Progress/Assignee</h2>
+<h3>Task: <%= @task.title %></h3>
+<h3>Description: <%= @task.description %></h3>
+
+<%= if @current_user do %>
+    <%= render "progress.html", Map.put(assigns, :action, task_path(@conn, :update, @task)) %>
+<%= else %>
+    <h2><%= link "Log in", to: "/" %> to be able to update task progress!</h2>
+<%= end %>
+
+<span><%= link "Cancel", to: task_path(@conn, :index) %></span>

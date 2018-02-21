@@ -1,0 +1,11 @@
+<h2>New Task</h2>
+
+
+<%= if @current_user do %>
+    <%= render "form.html", Map.put(assigns, :action, task_path(@conn, :create)) %>
+<%= else %>
+    <h2><%= link "Log in", to: "/" %> to be able to create new tasks!</h2>
+<%= end %>
+
+
+<span><%= link "Back to See All Tasks", to: task_path(@conn, :index) %></span>

@@ -1,0 +1,37 @@
+<h2>Task: <%= @task.title %></h2>
+
+<ul>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @task.description %>
+  </li>
+
+  <%= if @task.user do %>
+    <li>
+      <strong>Assigned to:</strong>
+      <%= @task.user.name %>
+    </li>
+  <%= else %>
+    <li>
+      <strong>Not Assigned to a User</strong>
+    </li>
+  <% end %>
+
+  <li>
+    <strong>Time spent:</strong>
+    <%= @task.time %> minutes
+  </li>
+
+  <li>
+    <strong>Completed:</strong>
+    <%= @task.completed %>
+  </li>
+
+</ul>
+
+<%= if @current_user do %>
+  <span><%= link "Update Progress/Assignee", to: task_path(@conn, :edit, @task) %></span>
+<%= end %>
+<br>
+<span><%= link "Back to Tasks", to: task_path(@conn, :index) %></span>

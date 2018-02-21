@@ -1,0 +1,84 @@
+<h1>Tasks</h1>
+<h3>Incomplete Tasks</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Time Spent</th>
+      <th>Assigned to</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for task <- @tasks do %>
+  <%= if !task.completed do %>
+    <tr>
+      <td><%= task.title %></td>
+      <td><%= task.time %> min.</td>
+      <%= if task.user do %>
+        <td>
+          <%= task.user.name %>
+        </td>
+      <%= else %>
+        <td>
+          <strong>No User Assigned</strong>
+        </td>
+      <% end %>
+
+      <td class="text-right">
+        <span><%= link "View", to: task_path(@conn, :show, task), class: "btn btn-default btn-xs" %></span>
+        <%= if @current_user do %>
+          <span><%= link "Update Progress/Reassign", to: task_path(@conn, :edit, task), class: "btn btn-default btn-xs" %></span>
+          <span><%= link "Delete", to: task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+        <%= end %>
+      </td>
+    </tr>
+  <% end %>
+<% end %>
+  </tbody>
+</table>
+
+<h3>Completed Tasks</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Time Spent</th>
+      <th>Assigned to</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for task <- @tasks do %>
+  <%= if task.completed do %>
+    <tr>
+      <td><%= task.title %></td>
+      <td><%= task.time %> min.</td>
+      <%= if task.user do %>
+        <td>
+          <%= task.user.name %>
+        </td>
+      <%= else %>
+        <td>
+          <strong>No User Assigned</strong>
+        </td>
+      <% end %>
+
+      <td class="text-right">
+        <span><%= link "View", to: task_path(@conn, :show, task), class: "btn btn-default btn-xs" %></span>
+        <%= if @current_user do %>
+          <span><%= link "Update Progress/Reassign", to: task_path(@conn, :edit, task), class: "btn btn-default btn-xs" %></span>
+          <span><%= link "Delete", to: task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+        <%= end %>
+      </td>
+    </tr>
+  <% end %>
+<% end %>
+  </tbody>
+</table>
+
+
+
+
