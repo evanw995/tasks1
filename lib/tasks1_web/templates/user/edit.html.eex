@@ -4,9 +4,9 @@
 <%= else %>
     <%= if @current_user do %>
         <h3>You are currently logged in as another user. You must be logged in as "<%= @user.name %>" to be able to edit username!</h3>
-        </br>
+        <br>
         <%= link "Log Out", to: "/session", method: :delete %>
-        </br>
+        <br>
     <%= else %>
         <h2><%= link "Log in", to: "/" %> to be able to edit username!</h2>
     <%= end %>

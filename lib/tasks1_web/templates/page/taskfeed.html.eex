@@ -1,9 +1,9 @@
 <h1>Your Tasks</h1>
-</br>
+<br>
 <h3> Incomplete tasks </h3>
 <%= Enum.map @tasks, fn task -> %>
     <%= if (task.user == @current_user) && @current_user && !task.completed do %>
-        </br>
+        <br>
         <div class="row">
             <div class="col">
                 <div class="card">
@@ -18,11 +18,11 @@
         </div>
     <% end %>
 <% end %>
-</br>
+<br>
 <h3> Completed tasks </h3>
 <%= Enum.map @tasks, fn task -> %>
     <%= if (task.user == @current_user) && @current_user && task.completed do %>
-        </br>
+        <br>
         <div class="row">
             <div class="col">
                 <div class="card">

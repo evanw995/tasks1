@@ -16,7 +16,7 @@
 <%= if @current_user == @user do %>
   <span><%= link "Edit Name", to: user_path(@conn, :edit, @user) %></span>
 <%= end %>
-</br>
+<br>
 <%= if !@current_user do %>
   <span><%= link "Go to Log in Page", to: "/" %></span>
 <%= end %>

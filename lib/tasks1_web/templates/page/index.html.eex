@@ -4,10 +4,10 @@
   <%= form_tag("/session", method: :post) do %>
     <div class="form-group">
       Username
-      <input type="name" name="Username" placeholder="Enter your username" >
-      </br>
+      <input type="text" name="Username" placeholder="Enter your username" >
+      <br>
       User ID
-      <input type="id" name="user_id" placeholder="Enter your user id" >
+      <input type="number" name="user_id" placeholder="Enter your user id" >
       <%= link "Forgot your user id?", to: "/users" %>
     </div>
     <!-- passwords come later -->
