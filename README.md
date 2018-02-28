@@ -56,3 +56,14 @@
 ## Edit User Page
 - Displays username at the top
 - User must be logged in as that user to edit their name
+
+## Managers
+-When viewing the Users page (while logged in), users have the option to designate themselves as a manager of another user by clicking "Manage." To undo this, users simply click the "Unmanage" button.
+-Only managers of a user's task can reassign tasks to other users
+-If the task is not assigned to anyone, anyone can reassign the task
+
+## Timeblocks
+-When viewing a task, a list of timeblocks will be displayed on screen
+-Each block includes a start time, end time, and the difference between the two (time spent on task, in minutes)
+-When viewing tasks, the Total Time Spent field is an accumulation of all the timeblocks associated with that task
+-Users can edit Timeblocks after creating them
