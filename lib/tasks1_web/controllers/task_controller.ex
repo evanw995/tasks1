@@ -6,7 +6,14 @@ defmodule Tasks1Web.TaskController do
 
   def index(conn, _params) do
     tasks = Work.list_tasks()
-    render(conn, "index.html", tasks: tasks)
+    current_user = conn.assigns[:current_user]
+    users = Tasks1.Accounts.list_users()
+    manages = if current_user do 
+        Tasks1.Work.manages_map_for(current_user.id)
+    else
+      nil
+    end
+    render(conn, "index.html", tasks: tasks, manages: manages)
   end
 
   def new(conn, _params) do
@@ -27,13 +34,21 @@ defmodule Tasks1Web.TaskController do
 
   def show(conn, %{"id" => id}) do
     task = Work.get_task!(id)
-    render(conn, "show.html", task: task)
+    timeblocks = Work.list_timeblocks()
+    current_user = conn.assigns[:current_user]
+    manages = if current_user do 
+        Tasks1.Work.manages_map_for(current_user.id)
+    else
+      nil
+    end
+    render(conn, "show.html", task: task, timeblocks: timeblocks, manages: manages)
   end
 
   def edit(conn, %{"id" => id}) do
     task = Work.get_task!(id)
+    timeblocks = Work.list_timeblocks()
     changeset = Work.change_task(task)
-    render(conn, "edit.html", task: task, changeset: changeset)
+    render(conn, "edit.html", task: task, changeset: changeset, timeblocks: timeblocks)
   end
 
   def track(conn, %{"id" => id}) do

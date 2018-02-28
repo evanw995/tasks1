@@ -12,26 +12,55 @@
       <strong>Assigned to:</strong>
       <%= @task.user.name %>
     </li>
-  <%= else %>
+  <% else %>
     <li>
       <strong>Not Assigned to a User</strong>
     </li>
   <% end %>
 
   <li>
-    <strong>Time spent:</strong>
-    <%= @task.time %> minutes
+    <strong>Task ID:</strong>
+    <%= @task.id %>
   </li>
+
 
   <li>
     <strong>Completed:</strong>
     <%= @task.completed %>
   </li>
 
+  <li>
+    <strong>Time Blocks:</strong>
+    <%= Enum.map @timeblocks, fn timeblock -> %>
+      <%= if timeblock.task_id == @task.id do %>
+        <br>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                      <p><strong>Start: </strong><%= timeblock.start %></p>
+                      <p><strong>End: </strong><%= timeblock.end %></p>
+                      <p><strong>Time Spent: </strong><%= abs(NaiveDateTime.diff(timeblock.start, timeblock.end, :second)) / 60 %> minutes</p>
+                      <span><%= link "Edit", to: timeblock_path(@conn, :edit, timeblock), class: "btn btn-default btn-xs" %></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+      <% end %>
+    <% end %>
+  </li>
+
+  <li>
+    <strong>Total time spent:</strong>
+    <%= Enum.sum(Enum.map(@timeblocks, fn(x) -> if x.task_id == @task.id, do: abs(NaiveDateTime.diff(x.start, x.end, :second)), else: 0 end)) / 60 %> minutes
+  </li>
+
 </ul>
 
 <%= if @current_user do %>
-  <span><%= link "Update Progress/Assignee", to: task_path(@conn, :edit, @task) %></span>
-<%= end %>
+  <%= if !@task.user || @task.user == @current_user || @manages[@task.user.id] do %>
+    <span><%= link "Update Progress/Reassign", to: task_path(@conn, :edit, @task), class: "btn btn-default btn-xs" %></span>
+  <% end %>
+<% end %>
 <br>
 <span><%= link "Back to Tasks", to: task_path(@conn, :index) %></span>

@@ -1,3 +1,10 @@
+<head>
+  <script>
+    window.manage_path = "<%= manage_path(@conn, :index) %>";
+    window.current_user_id = "<%= if @current_user, do: @current_user.id, else: nil %>";
+  </script>
+</head>
+
 <h2>Users</h2>
 
 <table class="table">
@@ -19,7 +26,15 @@
         <%= if @current_user == user do %>
           <span><%= link "Edit", to: user_path(@conn, :edit, user), class: "btn btn-default btn-xs" %></span>
           <span><%= link "Delete", to: user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
-        <%= end %>
+        <% else %>
+          <td>
+            <button class="manage-button btn btn-default"
+                    data-user-id="<%= user.id %>"
+                    data-manage="<%= @manages[user.id] %>">
+              Manage
+            </button>
+          </td>
+        <% end %>
         </td>
     </tr>
 <% end %>

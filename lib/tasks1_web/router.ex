@@ -29,13 +29,15 @@ defmodule Tasks1Web.Router do
     
     resources "/users", UserController
     resources "/tasks", TaskController
+    resources "/timeblocks", TimeblockController
 
     post "/session", SessionController, :create
     delete "/session", SessionController, :delete
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", Tasks1Web do
-  #   pipe_through :api
-  # end
+  scope "/api/v1", Tasks1Web do
+    pipe_through :api
+    resources "/manages", ManageController, except: [:new, :edit]
+  end
 end

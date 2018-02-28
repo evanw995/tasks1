@@ -20,7 +20,7 @@
         <td>
           <%= task.user.name %>
         </td>
-      <%= else %>
+      <% else %>
         <td>
           <strong>No User Assigned</strong>
         </td>
@@ -29,9 +29,11 @@
       <td class="text-right">
         <span><%= link "View", to: task_path(@conn, :show, task), class: "btn btn-default btn-xs" %></span>
         <%= if @current_user do %>
-          <span><%= link "Update Progress/Reassign", to: task_path(@conn, :edit, task), class: "btn btn-default btn-xs" %></span>
+          <%= if !task.user || task.user == @current_user || @manages[task.user.id] do %>
+            <span><%= link "Update Progress/Reassign", to: task_path(@conn, :edit, task), class: "btn btn-default btn-xs" %></span>
+          <% end %>
           <span><%= link "Delete", to: task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
-        <%= end %>
+        <% end %>
       </td>
     </tr>
   <% end %>
@@ -60,7 +62,7 @@
         <td>
           <%= task.user.name %>
         </td>
-      <%= else %>
+      <% else %>
         <td>
           <strong>No User Assigned</strong>
         </td>
@@ -69,9 +71,11 @@
       <td class="text-right">
         <span><%= link "View", to: task_path(@conn, :show, task), class: "btn btn-default btn-xs" %></span>
         <%= if @current_user do %>
-          <span><%= link "Update Progress/Reassign", to: task_path(@conn, :edit, task), class: "btn btn-default btn-xs" %></span>
+          <%= if !task.user || @manages[task.user.id] do %>
+            <span><%= link "Update Progress/Reassign", to: task_path(@conn, :edit, task), class: "btn btn-default btn-xs" %></span>
+          <% end %>
           <span><%= link "Delete", to: task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
-        <%= end %>
+        <% end %>
       </td>
     </tr>
   <% end %>

@@ -1,14 +1,14 @@
 <h2>Edit User: <%= @user.name %></h2>
 <%= if @current_user == @user do %>
     <%= render "form.html", Map.put(assigns, :action, user_path(@conn, :update, @user)) %>
-<%= else %>
+<% else %>
     <%= if @current_user do %>
         <h3>You are currently logged in as another user. You must be logged in as "<%= @user.name %>" to be able to edit username!</h3>
         <br>
         <%= link "Log Out", to: "/session", method: :delete %>
         <br>
-    <%= else %>
+    <% else %>
         <h2><%= link "Log in", to: "/" %> to be able to edit username!</h2>
-    <%= end %>
-<%= end %>
+    <% end %>
+<% end %>
 <span><%= link "Back", to: user_path(@conn, :index) %></span>

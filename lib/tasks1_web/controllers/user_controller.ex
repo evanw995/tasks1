@@ -5,8 +5,14 @@ defmodule Tasks1Web.UserController do
   alias Tasks1.Accounts.User
 
   def index(conn, _params) do
+    current_user = conn.assigns[:current_user]
     users = Accounts.list_users()
-    render(conn, "index.html", users: users)
+    manages = if current_user do 
+        Tasks1.Work.manages_map_for(current_user.id)
+    else
+      nil
+    end
+    render(conn, "index.html", users: users, manages: manages)
   end
 
   def new(conn, _params) do

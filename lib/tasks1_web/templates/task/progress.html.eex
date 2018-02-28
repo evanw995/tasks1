@@ -5,21 +5,21 @@
     </div>
   <% end %>
   <%= if @current_user == @task.user do %>
-    <div class="form-group">
-      <%= label f, "Time Spent (minutes)", class: "control-label" %>
-      <%= number_input f, :time, class: "form-control", step: 15 %>
-      <%= error_tag f, :time %>
-    </div>
+
+    <span><%= link "Add a time block", to: timeblock_path(@conn, :new) %></span>
 
     <div class="form-group">
       <%= label f, :completed, class: "control-label" %>
       <%= checkbox f, :completed, class: "checkbox" %>
       <%= error_tag f, :completed %>
     </div>
-  <%= else %>
+
+    
+  <% else %>
     <h3>Time Spent: <%= @task.time %> minutes</h3>
     <h3>Completed: <%= @task.description %></h3>
-  <%= end %>
+  <% end %>
+
   <div class="form-group">
     <%= label f, "Assign to a user by id", class: "control-label" %>
     <%= text_input f, :user_id, class: "form-control" %>

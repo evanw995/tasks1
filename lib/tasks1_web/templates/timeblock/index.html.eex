@@ -1,0 +1,28 @@
+<h2>Listing Timeblocks</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Start</th>
+      <th>End</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for timeblock <- @timeblocks do %>
+    <tr>
+      <td><%= timeblock.start %></td>
+      <td><%= timeblock.end %></td>
+
+      <td class="text-right">
+        <span><%= link "Show", to: timeblock_path(@conn, :show, timeblock), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: timeblock_path(@conn, :edit, timeblock), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: timeblock_path(@conn, :delete, timeblock), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Timeblock", to: timeblock_path(@conn, :new) %></span>
